@@ -154,6 +154,40 @@
   #photoStatus{ font-size:13px; color:var(--muted); text-align:center; }
   .log-note{ font-size:11.5px; color:var(--muted); text-align:center; line-height:1.5; }
 
+  .name-gate{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(135deg,var(--navy),var(--navy-2));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:20px;
+  }
+  .name-gate-card{
+    background:#fff;
+    border-radius:16px;
+    padding:28px 22px;
+    width:100%;
+    max-width:340px;
+    text-align:center;
+  }
+  .name-gate-card h2{ margin:0 0 6px; font-size:18px; color:var(--text); }
+  .name-gate-card p{ margin:0 0 18px; font-size:13px; color:var(--muted); line-height:1.5; }
+  #nameInput{
+    width:100%;
+    padding:13px 14px;
+    border-radius:10px;
+    border:1.5px solid var(--border);
+    font-size:16px;
+    margin-bottom:12px;
+    outline:none;
+    text-align:center;
+  }
+  #nameInput:focus{ border-color:var(--amber); }
+  .user-line{ color:#B8C4D1; }
+  .user-line a{ color:#B8C4D1; text-decoration:underline; cursor:pointer; }
+
   .toast{
     position:fixed;
     left:50%;
@@ -175,9 +209,18 @@
 </head>
 <body>
 
+<div class="name-gate" id="nameGate" style="display:none;">
+  <div class="name-gate-card">
+    <h2>시작하기 전에</h2>
+    <p>검색·사진 분석 기록에 남길 이름을 입력해주세요.</p>
+    <input id="nameInput" type="text" placeholder="이름 (예: 홍길동)" autocomplete="off">
+    <button id="nameSubmitBtn" class="primary-btn" style="width:100%;">시작하기</button>
+  </div>
+</div>
+
 <header>
   <h1>엑스스마트 프로 오류코드</h1>
-  <p>DS Core Support · 빠른 조회</p>
+  <p>DS Core Support · 빠른 조회<span class="user-line" id="userLine"></span></p>
 </header>
 
 <div class="tabs">
@@ -217,7 +260,7 @@
 
     <div id="photoStatus"></div>
     <div id="photoResult" class="list"></div>
-    <div class="log-note">촬영한 사진과 분석 결과는 구글 드라이브 · 구글 시트에 자동으로 기록됩니다.</div>
+    <div class="log-note">촬영한 사진과 분석 결과는 이름과 함께 구글 드라이브 · 구글 시트에 자동으로 기록되고, 수리팀에게 이메일로도 바로 전달됩니다.</div>
   </div>
 </div>
 
@@ -247,6 +290,62 @@ const emptyEl = document.getElementById("emptyState");
 const searchEl = document.getElementById("search");
 const toastEl = document.getElementById("toast");
 
+// ---------- 이름 입력(기록용) ----------
+const nameGate = document.getElementById("nameGate");
+const nameInput = document.getElementById("nameInput");
+const nameSubmitBtn = document.getElementById("nameSubmitBtn");
+const userLine = document.getElementById("userLine");
+let currentUserName = localStorage.getItem("xsmartUserName") || "";
+
+function renderUserLine(){
+  if (!currentUserName){ userLine.innerHTML = ""; return; }
+  userLine.innerHTML = ` · ${escapeHtml(currentUserName)}님 · <a id="changeNameLink">이름변경</a>`;
+  document.getElementById("changeNameLink").addEventListener("click", () => {
+    currentUserName = "";
+    localStorage.removeItem("xsmartUserName");
+    openNameGate();
+  });
+}
+
+function openNameGate(){
+  nameInput.value = "";
+  nameGate.style.display = "flex";
+  setTimeout(() => nameInput.focus(), 50);
+}
+
+function submitName(){
+  const v = nameInput.value.trim();
+  if (!v) return;
+  currentUserName = v;
+  localStorage.setItem("xsmartUserName", v);
+  nameGate.style.display = "none";
+  renderUserLine();
+}
+
+nameSubmitBtn.addEventListener("click", submitName);
+nameInput.addEventListener("keydown", (e) => { if (e.key === "Enter") submitName(); });
+
+if (!currentUserName){
+  openNameGate();
+} else {
+  renderUserLine();
+}
+
+// 검색 탭에서 "고객 안내문구 복사"를 누른 기록만 남김(입력할 때마다 남기면 너무 많아짐).
+// 사진 분석은 analyzeBtn 쪽에서 이미 매번 기록되므로 여기서는 중복 기록하지 않음.
+function logSearchUsage(code){
+  if (!APPS_SCRIPT_URL) return;
+  fetch(APPS_SCRIPT_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      token: APPS_SCRIPT_TOKEN,
+      mode: "검색",
+      name: currentUserName,
+      code: code,
+    }),
+  }).catch(() => {});
+}
+
 function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, s => ({
     "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
@@ -274,13 +373,15 @@ function cardHtml(item, opts){
   `;
 }
 
-function bindCopyButtons(container){
+function bindCopyButtons(container, opts){
+  opts = opts || {};
   container.querySelectorAll(".copy-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const item = ERROR_CODES.find(c => c.code === btn.dataset.code);
       if (!item) return;
       const text = `[오류코드 ${item.code}]\n증상: ${item.symptom}\n원인: ${item.cause}\n조치방법: ${item.action}`;
       copyText(text);
+      if (opts.logSearch) logSearchUsage(item.code);
     });
   });
 }
@@ -289,7 +390,7 @@ function render(items){
   listEl.innerHTML = items.map(item => cardHtml(item)).join("");
   countEl.textContent = `전체 ${ERROR_CODES.length}건 중 ${items.length}건 표시`;
   emptyEl.style.display = items.length ? "none" : "block";
-  bindCopyButtons(listEl);
+  bindCopyButtons(listEl, { logSearch: true });
 }
 
 function copyText(text){
@@ -430,6 +531,8 @@ analyzeBtn.addEventListener("click", async () => {
       method: "POST",
       body: JSON.stringify({
         token: APPS_SCRIPT_TOKEN,
+        mode: "사진",
+        name: currentUserName,
         image: currentPhoto.base64,
         mimeType: currentPhoto.mimeType,
         knownCodes: ERROR_CODES.map(c => ({ code: c.code, symptom: c.symptom })),
