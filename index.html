@@ -274,8 +274,10 @@
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQ4VAQ9rqDxL12XvMtI2zmX8k057NDwzwm9XvcVWvJs9PVzq222Y6B2cSZY-SzAe2o/exec";
 const APPS_SCRIPT_TOKEN = "xsmart2026";
 
-// ▼▼▼ 실제 매뉴얼 도착하면 이 배열만 통째로 교체하면 됩니다 ▼▼▼
-const ERROR_CODES = [
+// 아래는 처음 화면을 바로 그리기 위한 기본값입니다. 실제 최신 내용은 구글 시트
+// ("오류코드표" 탭)에서 매번 새로 받아오므로, 이 배열을 직접 고칠 필요는 없습니다
+// (build.py를 다시 실행해 갱신할 수는 있지만, 평소엔 시트에서 고치면 됩니다).
+let ERROR_CODES = [
   { code: "A_00B01", symptom: "에이펙스 ADC 드라이버 오류", cause: "ADC 드라이버(아날로그-디지털 변환 회로)", action: "기기를 재시작한 뒤에도 같은 오류가 다시 나타나면 기판을 교체해야 합니다." },
   { code: "A_00B04", symptom: "에이펙스 ADC 드라이버 오류", cause: "ADC 드라이버(아날로그-디지털 변환 회로)", action: "기기를 재시작한 뒤에도 같은 오류가 다시 나타나면 기판을 교체해야 합니다." },
   { code: "A_00B08", symptom: "에이펙스 ADC 드라이버 오류", cause: "ADC 드라이버(아날로그-디지털 변환 회로)", action: "기기를 재시작한 뒤에도 같은 오류가 다시 나타나면 기판을 교체해야 합니다." },
@@ -554,7 +556,34 @@ function doSearch(){
 }
 
 searchEl.addEventListener("input", doSearch);
+
+// 오프라인 상태에서도 지난번에 받아둔 최신 오류코드 표를 쓸 수 있도록 캐시해둔다.
+try {
+  const cached = localStorage.getItem("xsmartErrorCodesCache");
+  if (cached){
+    const parsed = JSON.parse(cached);
+    if (Array.isArray(parsed) && parsed.length) ERROR_CODES = parsed;
+  }
+} catch (e) {}
+
 render(ERROR_CODES);
+refreshErrorCodesFromServer();
+
+async function refreshErrorCodesFromServer(){
+  if (!APPS_SCRIPT_URL) return;
+  try {
+    const url = `${APPS_SCRIPT_URL}?token=${encodeURIComponent(APPS_SCRIPT_TOKEN)}&action=codes`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.ok && Array.isArray(data.codes) && data.codes.length){
+      ERROR_CODES = data.codes;
+      try { localStorage.setItem("xsmartErrorCodesCache", JSON.stringify(ERROR_CODES)); } catch (e) {}
+      doSearch();
+    }
+  } catch (e) {
+    // 네트워크가 안 되면 기존(캐시 또는 내장) 데이터를 그대로 씀
+  }
+}
 
 // ---------- 탭 전환 ----------
 document.querySelectorAll(".tab-btn").forEach(btn => {
