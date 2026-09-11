@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>엑스스마트 프로 오류코드</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A2540">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="오류코드">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAFVElEQVR4nO3dPXLbMBRFYcvjyn16NN6Ht5DVZA1ZTbbgfbhBn15tMpmMZmyZEkkQJN6973xlMv4RcPwMmxZ1egjg+eX1z+jPAdud399OD4MN+QQIOIfzgMAP+4BEnNv5oLh3/SBEjKPj3uUdEzJGhf3Y+x0SM0a20u0rhJARYVp3mdDEjCgNbfqqIGREm9bNE5qYsZctbTUFTczYW2tjq4MmZhylpbVVQRMzjra2ucVBEzNGWdPeoqCJGaMtbXA2aGJGFEta7H7pGxjpbtBMZ0Qz1+TNoIkZUd1rkyMHrEwGzXRGdLca/RI0MUPFVKscOWDlU9BMZ6i5bpYJDSsEDc+gOW5A1cd2mdCwQtDwC5rjBtRdGmZCwwpBwwpBw8qJ8zOcMKFhhaBh5Wn0J+Ckfn9rftvy67Xr55IVZ+gB8S5F5OsRdKCA5xD4PIIOHvEtxD2NoMVCvkbYnxG0aMjXCPs/ghYP+VpJ/tuS1EE7hXytJA07ZdDOIWcPO92VwkwxZ3y8qYLOtrkZH3eKI0emDc1+BLGf0MScaz2sg3bfvFbVeF1sg3betB6q6fpYBu26Wb1Vw3WyC9pxk/ZUzdbLKmi3zTlKNVo3m6CdNmWEarJ+FkG7bMZo1WAd5YN22IRIqvh6SgetvvhRVeF1lQ4asAlaeYooqKLrK/nHSUqL/e3n1+X9/eP0oKKI/TGT3IRWj/nev0dUhdZbMmgVc9EqRa1EKmiVabE0VpWoq8i6ywWtYG2kKlGrkAlaaUo4qiLrLxM0YBO0ynRwVwX2QSJowCZohamQSQ2+H+GDBmyCjj4NsqqB9yV00MBaBA0rYYOO/G0ND2H3J2zQQAuChhWChpWQQUc9nyH+PoUMGmhF0LBC0LBC0LASLuiIP2hAZ7/CBQ1sQdCwQtCwQtCwQtCwQtCwQtCwQtCwQtCwQtCwQtCwQtCdrX25CaWXp1BA0DtYGikx90fQO5mLlZiTBK32qkst0TrFXILtV7iggS2eNr01ml475fJ/TpM6Cib0DtxeBUsJQXfGq2CNFTLoaD9oLNU6cVUndQm4TyGDBloRdCdbp6zqlI6GoGElbNARz2eIvz9hgwZaEDSshA466re1KVuv+ildNSyB9yV00IBd0JGnQa8py3ROFLQanrEylkTQSlPa+RkrRWAf+PPRnVxinboCqBayktPzy6vMNddoN9fOpAhMZ5kjB2AZtMqUcFOE1l0qaMAuaKVp4aCIrbdc0IqLrKoIrrNk0KqLraSIrq9s0IBd0KpTJLoivK7SQasvfkRFfD3lg3bYhCiKwTpaBO2yGSMVk/WzCdppU45WjNbNKmi3zTlCMVsvu6AdN2kvxXCdLIN23ayeiun62AbtvGlbFeN1sQ7affNaFPP1kHrGylaZn/FSzENOM6Ezbmrmx50q6Gybm/HxpjpyZDqClGQhX6QO2jHskjTkC4I2CTt7yBcELR42IX9G0KJhE/I0ghaKm4jnEXTgwAl4PYIOEjnx9kHQsJLuSiG8PZ7f37hZMSz8a5kJDSsEDSsEDb+gOUdD3aVhJjSsEDQ8g+bYAVUf22VCwwpBwzdojh1Qc90sExpWvgTNlIaKqVYnJzRRI7pbjXLkgJWbQTOlEdW9Nu9OaKJGNHNNcuSAldmgmdKIYkmLiyY0UWO0pQ0uPnIQNUZZ096qMzRR42hrm1v9QyFR4ygtrTX9loOosbfWxpp/bUfU2MuWtrrcZIZXAUAPPYZklwsrTGtEaaj7bcCY1hg5DLtf+mZaY2Qru96okWmNo4feYXceJe7czgfd5XbIrXSJO4fzgFs1h7g3NIF7OAe41/hfaOTY8yG0FioAAAAASUVORK5CYII=">
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoi7JeR7Iqk7Iqk66eI7Yq4IO2UhOuhnCDsmKTrpZjsvZTrk5wiLCJzaG9ydF9uYW1lIjoi7Jik66WY7L2U65OcIiwic3RhcnRfdXJsIjoiLi9pbmRleC5odG1sIiwic2NvcGUiOiIuLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwQTI1NDAiLCJ0aGVtZV9jb2xvciI6IiMwQTI1NDAiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFNQUFBQURBQ0FZQUFBQlMzR3dIQUFBRnBFbEVRVlI0bk8zZFBWTGpUQlNGWVpraUlwKzhFL2JCRm1ZMXM0Wlp6V3lCZlpBNEp5ZWRLYWd5QTdabFNhMXU2WjU3M2lmOHZocCt1cy9wSzJHRERrTXdENDlQZi9mK0d0RFAyOHZ6WVFoazF5K0dzR1B2VW16K2lRazlJcFZoczA5RzhCR3hDTjAvQ2NGSDVDSjArK0FFSHdwRmFQNUJDVDZVaW5EWDhvTVJmdlRXT21OTjJrVHdvVG9OVms4QXdvKzl0TWplcWdJUWZ1eHRiUWFyQzBENEVjV2FMRllWZ1BBam10cE1MaTRBNFVkVU5kbGNWQURDaitpV1puUjJBUWcvVkN6SjZxd0NFSDZvbVp2WnlRSVFmcWlhazkybWI0VUExTndzQUtjLzFFMWxlTFFBaEI5WjNNb3lsMEN3ZHJVQW5QN0laaXpUVEFCWXV5Z0Fweit5dXBadEpnQ3NmU3NBcHoreU84ODRFd0RXUGd2QTZROFhYN1BPQklBMUNnQnJId1hnOGdkdVRwbG5Bc0FhQllBMUNnQnJGQURXRHR3QXd4a1RBTllvQUt6ZDcvMEZPRGorZks3K3QrWFBVOU92QmQ5eER4QW83SE5SaW5Zb2dFRGdwMUNJZWhSQU5QUmpLTU15RkNCQjZNZFFobWtVSUdId3oxR0VjUlFnY2ZEUFVZUkxGTUFnK09jb3duKzhFR1lXZnFmdmN3NG1nSGtnaXZrTGJmWVR3RG44Nzl5L2Y5c0o0TDd4MXhURGFXQTVBUWcvNjJKYkFNTFArdGdXZ1BDelRwYjNBQVMvWGtsK1g1QitBaEIrMXMrMkFJU2ZkYlF0QU9GblBhMExBTmdXZ05PZmRiVXRBT0ZuZlcwTFFQaFpaOXNDRUg3VzI3b0FnRzBCT1AxWmQ5dTNRcWlHLzhmdnkyVi8vWFVZRkJYaHQwdWttQUFad24vcnY2TWY2UUlvbnY1VElWY3N3VkZ3SCtRTG9Mam9jOE5OQ2JZald3QTFTME90V0FKRmtnVlFQUDBkSEFYM1JiSUFnRzBCRkU4WkowZXgvWkVyQUdCYkFMWFR4ZFZSYUora0NnQzBSZ0ZnVGFZQVNtTVZnOHgreVJRQTZJRUN3SnBFQVZUR0tmVDJUYUlBUUM4VUFOWW9BS3lGTDREQ2RTUjA5eTk4QVlDZUtBQ3NVUUJZb3dDd0Zyb0EwVytnb0wrUG9Rc0E5RVlCWUkwQ3dCb0ZnRFVLQUdzVUFOWW9BS3hSQUZpakFMQkdBV0NOQXNBYUJZQTFDckNScFEvQVUzMWduaG9Lc0tHNW9TYjgyd2xkQU9YSGI5YUdPMlA0UytCOURGMkFyTVpDbmpIODBWRUFXTHZmK3d0d2MrdnBqNmYveHlUWURoTmdRNW1mRTZ3cWZBRWkzMEF0NGZxYzRCSjgvOElYSUlQYU1HY3BRV1FVQU5Zb1FHZHJUM0dtUUY4U0JZaCtIUW5kZlpNb0FOQUxCWUExbVFJb2pGUG83WmRNQVZTdGZWV1hWNFg3b2dDd0psVUFsYkhhNmhSWFBmMkwwRDVKRlVBWnZ4RVdrMXdCbEU0WHg5OElLMkw3dzl1aE4zWUs5N1ZYZUpXRHIrcnc4UGdrK1k2cnlFOGRjVlhFVG4vSlN5Q2dKZGtDS0o0Mm1SWFIvWkF0Z1BLaVoxT0U5MEc2QU1EZ1hnRGwweWVESXI3KzhnWElzQW1xU29KMVQxRUFZSEF2UUliVFNFbEpzdDVwQ3BCcFU2SXJpZFk1VlFHeWJVNUVKZG42cGl0QXhrMktvaVJjMTVRRkFBYjNBbVE4cmZaVWtxNW4yZ0prM3JTdGxjVHJtTG9BMlRkdkN5WDUrc24rUGtBTmZvZGd2cEk4K0RZVHdIRlQxeXBHNjJSVkFMZk5yVkhNMXNldUFJNmJQRmN4WEJlcmU0QnJ1QzhZTElOdlBRRytjdDc4ZCs3ZnYvMEVjSjBHN3NFL3NaOEFqcUZ3K1Q3bllBSVlUUU9DZjRrQ0dCU0I0SStqQUltTFFQQ25VWUJrWlNEMHkxQ0FCR1VnOVBVb2dHQWhDSHc3RkNCNEtRaDdYeFFBMW5naEROYnUzbDZlZVN3SkxMMW5ud2tBYXhRQTFpZ0FyRkVBV1Bzb0FEZkNjSFBLUEJNQTFpZ0FySDBXZ01zZ3VQaWFkU1lBckgwckFGTUEyWjFubkFrQWF4Y0ZZQW9ncTJ2WlpnTEEydFVDTUFXUXpWaW1tUUN3TmxvQXBnQ3l1SlhsbXhPQUVrRGRWSWE1QklLMXlRSXdCYUJxVG5ablRRQktBRFZ6TXp2N0VvZ1NRTVdTckM2NkI2QUVpRzVwUmhmZkJGTUNSRldUemFxZkFsRUNSRk9ieWVvZmcxSUNSTEVtaTZ0ZUI2QUUyTnZhREs1K0lZd1NZQzh0c3RmMDc0SzZQM1FiMjJoNTZEWjlLd1RUQUwyMXpsaTN2d3pOTklEQzRkcjlUNk5UQkVTK3F0anMyUUFVQVJFdnB6ZC9PQVpGUUtUN3lGMmZEa01ac1BjUFQ4STlIb2xTNVBZVzdKRmMvd0FabXZIanBuWk0wd0FBQUFCSlJVNUVya0pnZ2c9PSIsInNpemVzIjoiMTkyeDE5MiIsInR5cGUiOiJpbWFnZS9wbmcifSx7InNyYyI6ImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBZ0FBQUFJQUNBWUFBQUQwZU5UNkFBQVJoVWxFUVZSNG5PM2NNWmJieGhLR1VZMk9vOG1kTzlFK1pndGVqZGZnMVhnTDJvY1Q1YzZaNmgxWlo1NnBFVGtrUUFCZDFmKzlnVE5MR0lqZDlhRkI2ZWtESlQxL2V2azYraG9BdG5ENisvT1RPMW1QUDVSQkRIaUE3d1RDR0FMZ0FJWTl3REtpWUg4Q1lBY0dQc0MyQk1IMkJNQUdESHlBWXdtQ3h3bUFsUXg5Z0JyRXdEb0NZQUZESDZBMk1YQS9BWENEb1EvUWt4aDRud0M0d3VBSG1JTVF1RXdBbkRIMEFlWW1CdjRqQUF4K2dEZ24venBoZGdCNDRnZklkZ29PZ2NnZjNPQUhJRDBFb241Z2d4K0E5NXlDUWlEaUJ6WDRBVmppRkJBQ0h6OU16dkFId096NDJiU0ZZL0FEc0lYVHBLY0IwLzFRQmo4QWV6aE5GZ0pUdlFJdy9BRXdZKzR6UmMwWS9BQWM2VFRCYVVEN0V3RERId0N6Snl3QURIOEF6S0IxV2g1aEdQd0FWSEpxK0VxZzNRbUE0UTlBTmMrZlhyNSthS1pWQUhTOHdRQmtlRzQybzFvY1dYUzdxUUJrT3pWNEpWRCtCTUR3QjZDYjV3WVBycVVEb01NTkJJQ09NNnhzQUZTL2NRRFFlWmFWRElES053d0FacGhwNVFLZzZvMENnSmxtVzZrQXFIaURBR0RHR1ZjbUFLcmRHQUNZZWRhVkNJQktOd1FBRW1iZThBQ29jaU1BSUduMmZVeS9BUUNRT0FNL3B2N2dBRERheUZrNEpBQU1md0FZT3hNUER3RERId0RHejhaREE4RHdCNEFhTS9Ld0FERDhBYURPckR3a0FBeC9BS2cxTTRmL093QUF3UEYyRHdCUC93QlFiM2J1R2dDR1B3RFVuS0c3QllEaER3QjFaNm52QUFCQW9GMEN3Tk0vQU5TZXFac0hnT0VQQVBWbjY2WUJZUGdEd0Q2Mm5yRytBd0FBZ1RZTEFFLy9BTEN2TFdmdEpnRmcrQVBBTWJhYXVWNEJBRUNnaHdQQTB6OEFIR3VMMmVzRUFBQUNQUlFBbnY0QllJeEhaL0RxQUREOEFXQ3NSMmF4VndBQUVHaFZBSGo2QjRBYTFzNWtKd0FBRUdoeEFIajZCNEJhMXN4bUp3QUFFR2hSQUhqNkI0Q2FsczVvSndBQUVPanVBUEQwRHdDMUxablZUZ0FBSU5CZEFlRHBId0I2dUhkbU93RUFnRUFDQUFBQzNRd0F4LzhBME1zOXM5c0pBQUFFZWpjQVBQMERRRSszWnJnVEFBQUlKQUFBSU5EVkFIRDhEd0M5dlRmTG5RQUFRQ0FCQUFDQkxnYUE0MzhBbU1PMW1lNEVBQUFDQ1FBQUNQUlRBRGorQjRDNVhKcnRUZ0FBSUpBQUFJQkFBZ0FBMGdQQSszOEFtTlBiR2U4RUFBQUNDUUFBQ0NRQUFDQTVBTHovQjRDNW5jOTZKd0FBRUVnQUFFQWdBUUFBZ1FRQUFLUUdnQzhBQWtDRzE1bnZCQUFBQWdrQUFBZ2tBQUFna0FBQWdFQUNBQUFDQ1FBQUNDUUFBQ0RRazM4REFBRHkvREw2QW9EdGZQbjk4KzYzODdlL1huYi9QWUQ5T1FHQUpvNFk3bHNSQ1ZDZkFJQmlPZzM2cFlRQjFDRUFZS0NaaC8yOVJBR01JUURnUUFiK2JZSUFqaUVBWUVjRy91TUVBZXhEQU1DR0RQejlDUUxZaGdDQUJ4bjY0NGdCV0U4QXdBcUdmajFpQUpZUkFIQW5RNzhQTVFDM0NRQzR3ZUR2U3dqQWRRSUFMakQwNXlNRzRFY0NBTTRZL1BNVEF2Q2RBQUNEUDVJUUlKMEFJSmFuZlY2SkFSSUpBT0lZL0Z3akJFZ2lBSWhoOEhNdklVQUNBY0QwREg3V0VnTE03T1BvQzRBOUdmNzQvTUJsVGdDWWtzSFAxcHdHTUJzQndGUU1mdlltQkppRkFHQUtCajlIRXdKMDV6c0F0R2Y0NDNNSHl6a0JvQzJEbnlxY0J0Q1JBS0FkZzUrcWhBQ2RlQVZBSzRZL2xmbDgwb2tUQUZxd3NkS04wd0NxY3dKQWVZWS9IZm5jVXAwQW9EU2JLSjM1L0ZLWlZ3Q1VaT05rTmw0SlVJMFRBTW94L0ptUnp6WFZDQUJLc1VreU01OXZLdkVLZ0JKc2pLVHhTb0RSbkFBd25PRlBJcDk3UmhNQURHVVRKSm5QUHlNSkFJYXgrWUYxd0RpK0E4RGhESDY0elBjQ09KSVRBQTVsK0lQMVFRMENnTU1ZL21DZFVJY0E0QkNHUDFndjFDSUEySjNoRDlZTjlRZ0FkbVg0Zy9WRFRRS0EzUmorWUIxUmx3QmdGNFkvV0UvVUpnRFluT0VQMWhYMUNRQTJaZmpEZnF3dnRpUUEySXpOQ2Zabm5iRVZBY0FtYkVwd0hPdU5MUWdBSG1Zemd1TlpkenhLQVBBUW14Q01ZLzN4Q0FIQWFqWWZHTTg2WkMwQndDbzJIYWpEZW1RTkFjQmlOaHVveDdwa0tRSEFJallacU12NlpBa0J3TjFzTGxDZmRjcTlCQUFBQkJJQTNNVlRCZlJodlhJUEFjQk5OaFBveDdybEZnSEF1MndpMEpmMXkzc0VBRmZaUEtBLzY1aHJCQUFBQkJJQVhPU3BBZVpoUFhPSkFPQW5OZ3VZajNYTld3S0FIOWdrWUY3V04rY0VBQUFFRWdEOG42Y0RtSjkxemlzQndMOXNDcEREZXVjYkFZRE5BQUtKQUFRQUFBUjZldjcwOG5YMFJUQ09wNEFzdi81NWU3bi84OGZUSWRkQ0RiLzk5VEw2RWhoRUFBUXovSFBjTS9qZkVnSTVSRUNtWDBaZkFGQnI4TC85ZjRVQXpNa0pRQ2hQLzNON1pQQmZJd1RtNWhRZ2p5OEJ3bVQyR1A1Ny9yckFHQUlna0tmL2VlMDlwRVhBdk93TGVRUkFHSXQ4WGtjTlp4RXdML3RERmdFQUV6aDZLSXNBNkU4QUJGSDNnSDJDVndJQW1odjFOTzRVQUhvVEFDRTgvUVAyQzg0SkFHaHM5RlA0Nk44ZldFOEFCUEQwRDlnM2VFc0FUTTd3bjFlVnArOHExOEgyN0I5ekV3QUFFRWdBVEV5OUEvWVJyaEVBQUJCSUFFekswejlnUCtFOUFnQUFBZ21BQ1huNkIrd3IzQ0lBQUNDUUFBQ0FRQUpnTW83L0Fmc0w5eEFBQUJCSUFFekUwejlnbitGZUFnQUFBZ21BU1hqNkIrdzNMQ0VBQUNDUUFBQ0FRQUpnQW83L0Fmc09Td2tBQUFna0FKcno5QS9ZZjFoREFBQkFJQUVBQUlFRVFHT08vNEhSN0VOOUNRQUFDQ1FBQUNDUUFHaktzUnRRaGYyb0p3RUFBSUVFQUFBRUVnQU5PVzREcXJFdjlTTUFBQ0NRQUFDQVFBSUFBQUlKZ0dhOFp3T3Fzai8xSWdBQUlKQUFBSUJBQWdBQUFnbUFScnhmQTZxelQvVWhBQUFna0FBQWdFQUNBQUFDQ1lBbXZGY0R1ckJmOVNBQUFDQ1FBQUNBUUFJQUFBSUpBQUFJSkFBYThJVWFvQnY3Vm4wQ0FBQUNDUUFBQ0NRQUFDQ1FBQUNBUUFJQUFBSUpnT0o4a3hib3l2NVZtd0FBZ0VBQ0FBQUNDUUFBQ0NRQUFDQ1FBQUNBUUFJQUFBSUpBQUFJSkFBQUlKQUFLTXcvb2dGMFp4K3JTd0FBUUNBQkFBQ0JCQUFBQkJJQUFCQklBQUJBSUFFQUFJRUVBQUFFRWdBQUVFZ0FBRUFnQVFBQWdRUUFBQVFTQUFBUVNBQUFRQ0FCQUFDQkJBQUFCQklBQUJCSUFBQkFJQUVBQUlFRUFBQUVFZ0FBRUVnQUFFQWdBUUFBZ1FRQU5QWFBIMDhmS3FoeUhjQXlBZ0FBQWdtQXduNzc2MlgwSlZEYzZLZnYwYjgvOWRuSDZoSUFBQkJJQUVCem81N0NQZjFEYndJQUFBSUpBSmpBMFUvam52NmhQd0VBa3pocUtCditNQWNCQUJQWmV6Z2IvakFQQVFDVDJXdElHLzR3bDE5R1h3Q3czN0QrOWMrdm0vMWF3RnllbmorOVBMNURzS3N2djM5MmgzbkltaEF3K0htVWZ3U29OaWNBRUdESmlZREJEeGtFQUFReDNJRlhBZ0NDT0FFQVhna0FtTmlhZC85di94K25CakFuQVFBVDJ1TGIvMjkvTFNFQWMvRzNBSnJ3TndFNGV2QmZJd1M0aDc4QlVKOS9DQWdtY2NUd1AvTDNBZllsQUdBQ1J3OWxFUUQ5K1E0QU5EWnlFUHR1QVBUbUJBQ2FxdklVWHVVNmdHVUVRQk8rVUFOMFliL3FRUUJBUTlXZXVxdGREM0NiQUlCbXFnN2JxdGNGWENZQW9KSHFRN2I2OVFIL0VRQ05lSzhHVkdlZjZrTUFRQk5kbnE2N1hDZWtFd0FBRUVnQVFBUGRucXE3WFM4a0VnRE5lTDhHVkdWLzZrVUFBRUFnQVFBQWdRUUFGTmYxZlhyWDY0WVVBcUFoNzltQWF1eEwvUWdBQUFna0FBQWdrQUJveW5FYlVJWDlxQ2NCQUFDQkJBQUFCQklBalRsMkEwYXpEL1VsQUFBZ2tBQ0E0djc1NCtsRFIxMnZHMUlJZ09ZY3Z3SDJIOVlRQUFBUVNBQk13Q2tBWU45aEtRRUFEWFI3bjk3dGVpR1JBQUNBUUFKZ0VsNER6Sy9MVTNXWDYyUTkrODBjQkFBQUJCSUFFMUhsODZ2K2RGMzkrbmljZldZZUFnQ2FxVHBrcTE0WGNKa0FtSXc2ejFCdDJGYTdIdlpoZjVtTEFBQ0FRQUlBbXFyeTFGM2xPb0JsbnA0L3ZYeGQrUC9Rd0pmZlA0KytCQTcwNjUvSEwyT0RQNHZqLy9rNEFZQUpIRDJNRFgvb1R3Qk1TcTNuT1dvb0cvNTU3Q2R6K21YMEJRRGJEK2M5WGdrWS9EQVgzd0dZbk84Q1pOc2lCQXorYko3KzUrVUVBQ2IyZG5qZkV3UUdQbVJ3QWhEQUtRQ3docWYvdWZrU1lBQ0xHTEJ2OEpZQUFJQkFBaUNFVXdEQWZzRTVBUUFBZ1FSQUVLY0FnSDJDVndJQUFBSUpnREJPQVFEN0E5OElnRUFpQUxBdklBQUFJSkFBQ09VVUFMQWZaQk1BQUJCSUFBUnpDZ0RZQjNJSmdIQVdQK1N5L3JNSkFBQUlKQUR3RkFDQlBQMGpBUGlYelFCeVdPOThJd0N3S1VBUXc1OVhBZ0FBQWdrQWZ1RHBBT1psZlhOT0FQQVRtd1RNeDdybUxRSEFSVFlMbUlmMXpDVUNBQUFDQ1FDdTh0UUEvVm5IWENNQWVKZk5BL3F5Zm5tUEFPQW1td2owWTkxeWl3RGdMallUNk1ONjVSNENBQUFDQ1FEdTVxa0M2ck5PdVpjQVlCR2JDOVJsZmJLRUFHQXhtd3pVWTEyeWxBQmdGWnNOMUdFOXNvWUFZRFdiRG94bkhiS1dBT0FoTmg4WXgvcmpFUUtBaDltRTRIaldIWThTQUd6Q1pnVEhzZDdZZ2dCZ016WWwySjkxeGxZRUFKdXlPY0YrckMrMkpBRFluRTBLckN2cUV3RHNRZ1NBOVVSdEFvRGRpQUN3anFoTEFMQXJFUURXRHpVSkFIWW5Bc0M2b1I0QndDRkVBRmd2MUNJQU9Jd0lBT3VFT2dRQWh4SUJZSDFRdzlQenA1ZXZveStDVEY5Ky96ejZFcUFFWWN3SVRnQVl4cVlIMWdIakNBQ0dFZ0VrOC9sbkpBSEFjRFpCRXZuY001cnZBRkNLN3dVd080T2ZLcHdBVUlyTmtabjVmRk9KQUtBY215UXo4cm1tR3E4QUtNMHJBYm96K0tuS0NRQ2wyVHpwek9lWHlnUUE1ZGxFNmNqbmx1cThBcUFWcndTb3p1Q25DeWNBdEdKenBUS2ZUenB4QWtCYlRnT293dUNuSXdGQWUwS0FVUXgrT3ZNS2dQWnN3dmpjd1hKT0FKaUswd0QySmppWmhRQmdTa0tBclJuOHpFWUFNRFVod0tNTWZtYmxPd0JNemVhTnp3OWM1Z1NBR0U0RHVKZHdKSUVBSUk0UTRCcURueVFDZ0ZoQ2dGY0dQNGtFQUlpQlNJWSs2UVFBbkhFcU1EK0RINzRUQUhDQkVKaVB3UTgvRWdCd2d4am95OUNINndRQTNFa0k5R0h3dzIwQ0FGWVFBL1VZK3JDTUFJQUhpWUZ4REgxWVR3REFoc1RBL2d4OTJJWUFnQjBKZ3NjWitMQVBBUUFIRWdTM0dmaHdEQUVBQXdrQ0F4OUdFUUJRek14UjRPa2U2aEFBMEVTbk1ERG9vVDRCQUJNNUloSU1kNWpEMDdmL1BIOTYrVHI2UWdDQVk1eisvdnowOGFEZkN3QW9SQUFBUUNBQkFBQ0JCQUFBQkJJQUFCQklBQUJBSUFFQUFLa0I4TzN2QTQ2K0VBQmdmNjh6M3drQUFBUVNBQUFRU0FBQVFDQUJBQURKQWVDTGdBQXd0L05aN3dRQUFBSUpBQUFJSkFBQUlEMEFmQThBQU9iMGRzWTdBUUNBUUFJQUFBSUpBQUFJOUZNQStCNEFBTXpsMG14M0FnQUFnUVFBQUFTNkdBQmVBd0RBSEs3TmRDY0FBQkJJQUFCQW9Lc0I0RFVBQVBUMjNpeDNBZ0FBZ1FRQUFBUjZOd0M4QmdDQW5tN05jQ2NBQUJEb1pnQTRCUUNBWHU2WjNVNEFBQ0NRQUFDQVFIY0ZnTmNBQU5ERHZUUGJDUUFBQkxvN0FKd0NBRUJ0UzJhMUV3QUFDTFFvQUp3Q0FFQk5TMmUwRXdBQUNMUTRBSndDQUVBdGEyYXpFd0FBQ0xRcUFKd0NBRUFOYTJleUV3QUFDTFE2QUp3Q0FNQllqOHppaDA0QVJBQUFqUEhvRFBZS0FBQUNQUndBVGdFQTRGaGJ6RjRuQUFBUWFKTUFjQW9BQU1mWWF1WnVkZ0lnQWdCZ1gxdk9XcThBQUNEUXBnSGdGQUFBOXJIMWpOMzhCRUFFQUVEOTJickxLd0FSQUFDMVo2cnZBQUJBb04wQ3dDa0FBTlNkcGJ1ZUFJZ0FBS2c1UTNkL0JTQUNBS0RlN1BRZEFBQUlkRWdBT0FVQWdGb3o4N0FUQUJFQUFIVm01YUd2QUVRQUFOU1lrWWQvQjBBRUFNRDQyVGprUzRBaUFBREd6c1JoZnd0QUJBQ1E3alJvK0EvL2E0QWlBSUJVcDRIRHY4Uy9BekQ2QmdCQTR1d2JIZ0JWYmdRQUpNMjhFZ0ZRNllZQVFNS3NLeE1BMVc0TUFNdzg0MG9GUU1VYkJBQXp6clp5QVZEMVJnSEFURE90WkFCVXZtRUFNTU1zS3hzQTFXOGNBSFNlWWFVRG9NTU5CSUNPczZ2OEJaNTcvdlR5ZGZRMUFFRG53ZC9tQktEcmpRVWd5Nm5aakdvVkFCMXZNQUR6T3pXY1RlMHUrSnhYQWdDTWRHbzQrTnVlQU14eTR3SG83ZFI4QnJVT2dCbitBQURvNXpUQjdHbi9BNXp6U2dDQVBaMG1HUHpUbkFETStnY0RRQzJueVdiTVZEL01PYWNCQUd6aE5ObmdmelhsRDNWT0NBQ3d4bW5Td1QvbEs0REVQMEFBdG5jS21CM1QvNERubkFZQWtENzRYOFg4b09lRUFBQ3BnLzlWM0E5OFRnZ0FaRHNGRHY1WHNULzRPU0VBa09VVVBQaGZ4ZCtBYzBJQVlHNEcvMzhFd0JWaUFHQU9odjVsQXVBR0lRRFFrOEgvUGdHd2dCZ0FxTTNRdjU4QVdFa01BTlJnNks4akFEWWdCZ0NPWmVnL1RnRHNRQkFBYk12QTM1NEFPSUFnQUZqR3dOK2ZBQmhFRkFCOFo5aVBJUUNLRWdqQUxBejREeVg5RHc5YUtWcEdKOS90QUFBQUFFbEZUa1N1UW1DQyIsInNpemVzIjoiNTEyeDUxMiIsInR5cGUiOiJpbWFnZS9wbmcifV19">
+<style>
+  :root{
+    --navy:#0A2540;
+    --navy-2:#123456;
+    --amber:#EA7600;
+    --bg:#F4F5F7;
+    --card:#FFFFFF;
+    --text:#1B2733;
+    --muted:#6B7683;
+    --border:#E3E6EA;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic",Roboto,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    padding-bottom:40px;
+  }
+  header{
+    background:linear-gradient(135deg,var(--navy),var(--navy-2));
+    color:#fff;
+    padding:22px 18px 18px;
+    position:sticky;
+    top:0;
+    z-index:10;
+    box-shadow:0 2px 10px rgba(0,0,0,0.15);
+  }
+  header h1{ margin:0 0 2px; font-size:19px; font-weight:700; }
+  header p{ margin:0; font-size:12.5px; color:#B8C4D1; }
+
+  .tabs{
+    display:flex;
+    gap:8px;
+    padding:14px 16px 0;
+  }
+  .tab-btn{
+    flex:1;
+    padding:11px 8px;
+    border-radius:10px;
+    border:1.5px solid var(--border);
+    background:var(--card);
+    color:var(--muted);
+    font-size:13.5px;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .tab-btn.active{
+    background:var(--navy);
+    border-color:var(--navy);
+    color:#fff;
+  }
+
+  .search-wrap{ padding:14px 16px 6px; }
+  #search{
+    width:100%;
+    padding:13px 16px;
+    border-radius:12px;
+    border:1.5px solid var(--border);
+    font-size:16px;
+    background:var(--card);
+    outline:none;
+  }
+  #search:focus{ border-color:var(--amber); }
+
+  .notice{
+    margin:10px 16px 0;
+    padding:11px 14px;
+    background:#FFF4E8;
+    border:1px solid var(--amber);
+    border-radius:10px;
+    font-size:12.5px;
+    color:#8A4A00;
+    line-height:1.5;
+  }
+  .count{ padding:12px 16px 4px; font-size:12.5px; color:var(--muted); }
+  .list{ padding:6px 16px 16px; display:flex; flex-direction:column; gap:10px; }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:14px 16px;
+  }
+  .card-top{ display:flex; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
+  .badge{
+    background:var(--amber);
+    color:#fff;
+    font-weight:700;
+    font-size:13px;
+    padding:3px 10px;
+    border-radius:999px;
+    letter-spacing:0.3px;
+  }
+  .badge.ai{ background:var(--navy); }
+  .symptom{ font-size:15px; font-weight:700; color:var(--text); }
+  .row{ font-size:13.5px; line-height:1.55; margin:4px 0; }
+  .row b{ color:var(--navy); margin-right:4px; }
+  .actions{ margin-top:10px; display:flex; justify-content:flex-end; }
+  .copy-btn{
+    border:1px solid var(--navy);
+    color:var(--navy);
+    background:#fff;
+    font-size:12.5px;
+    padding:7px 12px;
+    border-radius:8px;
+    cursor:pointer;
+  }
+  .copy-btn:active{ background:var(--navy); color:#fff; }
+  .empty{ padding:40px 20px; text-align:center; color:var(--muted); font-size:13.5px; line-height:1.7; }
+
+  .photo-wrap{ padding:16px; display:flex; flex-direction:column; gap:12px; }
+  .primary-btn{
+    padding:14px 16px;
+    border-radius:12px;
+    border:none;
+    background:var(--navy);
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .primary-btn:disabled{ opacity:0.5; }
+  .ghost-btn{
+    padding:11px 16px;
+    border-radius:10px;
+    border:1.5px solid var(--border);
+    background:#fff;
+    color:var(--text);
+    font-size:13.5px;
+    cursor:pointer;
+  }
+  #photoPreviewWrap{ display:none; flex-direction:column; gap:10px; }
+  #photoPreview{
+    width:100%;
+    border-radius:14px;
+    border:1px solid var(--border);
+    display:block;
+  }
+  .btn-row{ display:flex; gap:10px; }
+  .btn-row .primary-btn, .btn-row .ghost-btn{ flex:1; }
+  #photoStatus{ font-size:13px; color:var(--muted); text-align:center; }
+  .log-note{ font-size:11.5px; color:var(--muted); text-align:center; line-height:1.5; }
+
+  .toast{
+    position:fixed;
+    left:50%;
+    bottom:24px;
+    transform:translateX(-50%) translateY(20px);
+    background:var(--navy);
+    color:#fff;
+    padding:10px 18px;
+    border-radius:999px;
+    font-size:13px;
+    opacity:0;
+    transition:opacity .2s, transform .2s;
+    pointer-events:none;
+    z-index:50;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  footer{ text-align:center; color:var(--muted); font-size:11.5px; padding:18px 16px 4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>엑스스마트 프로 오류코드</h1>
+  <p>DS Core Support · 빠른 조회</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="search">코드로 검색</button>
+  <button class="tab-btn" data-tab="photo">사진으로 확인</button>
+</div>
+
+<div id="tab-search">
+  <div class="search-wrap">
+    <input id="search" type="text" inputmode="search" placeholder="오류 코드나 증상을 입력하세요 (예: E01)" autocomplete="off">
+  </div>
+  <div class="notice">
+    ⚠ 지금은 뼈대 확인용 <b>샘플 데이터</b>입니다. 실제 매뉴얼 반영 전까지는 고객 안내에 사용하지 마세요.
+  </div>
+  <div class="count" id="count"></div>
+  <div class="list" id="list"></div>
+  <div id="emptyState" class="empty" style="display:none;">
+    검색 결과가 없습니다.<br>수리팀에 직접 문의해주세요.
+  </div>
+</div>
+
+<div id="tab-photo" style="display:none;">
+  <div class="notice">
+    ⚠ AI 사진 분석은 <b>참고용 추정</b>입니다. 확신도가 낮거나 애매하면 수리팀에 다시 확인하세요.
+  </div>
+  <div class="photo-wrap">
+    <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none;">
+    <button id="pickPhotoBtn" class="primary-btn">📷 오류 화면 사진 찍기 / 선택</button>
+
+    <div id="photoPreviewWrap">
+      <img id="photoPreview" alt="선택한 사진">
+      <div class="btn-row">
+        <button id="retakeBtn" class="ghost-btn">다시 선택</button>
+        <button id="analyzeBtn" class="primary-btn">AI로 분석하기</button>
+      </div>
+    </div>
+
+    <div id="photoStatus"></div>
+    <div id="photoResult" class="list"></div>
+    <div class="log-note">촬영한 사진과 분석 결과는 구글 드라이브 · 구글 시트에 자동으로 기록됩니다.</div>
+  </div>
+</div>
+
+<footer>샘플 데이터 · 실제 오류코드 매뉴얼 반영 예정</footer>
+
+<div class="toast" id="toast">복사되었습니다</div>
+
+<script>
+// 구글 Apps Script 배포 후 build.py 상단의 APPS_SCRIPT_URL / APPS_SCRIPT_TOKEN을 채우고
+// 다시 빌드하면 아래 값이 자동으로 채워집니다.
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQ4VAQ9rqDxL12XvMtI2zmX8k057NDwzwm9XvcVWvJs9PVzq222Y6B2cSZY-SzAe2o/exec";
+const APPS_SCRIPT_TOKEN = "xsmart2026";
+
+// ▼▼▼ 실제 매뉴얼 도착하면 이 배열만 통째로 교체하면 됩니다 ▼▼▼
+const ERROR_CODES = [
+  { code: "E01", symptom: "(샘플) 화면에 E01 표시", cause: "(샘플) 원인 설명이 들어갈 자리입니다.", action: "(샘플) 조치 방법이 들어갈 자리입니다." },
+  { code: "E02", symptom: "(샘플) 모터 회전 중 정지", cause: "(샘플) 원인 설명이 들어갈 자리입니다.", action: "(샘플) 조치 방법이 들어갈 자리입니다." },
+  { code: "E03", symptom: "(샘플) 배터리 관련 표시", cause: "(샘플) 원인 설명이 들어갈 자리입니다.", action: "(샘플) 조치 방법이 들어갈 자리입니다." },
+  { code: "B01", symptom: "(샘플) 캘리브레이션 오류", cause: "(샘플) 원인 설명이 들어갈 자리입니다.", action: "(샘플) 조치 방법이 들어갈 자리입니다." },
+  { code: "C01", symptom: "(샘플) 충전 관련 표시", cause: "(샘플) 원인 설명이 들어갈 자리입니다.", action: "(샘플) 조치 방법이 들어갈 자리입니다." },
+];
+// ▲▲▲ 여기까지 ▲▲▲
+
+const listEl = document.getElementById("list");
+const countEl = document.getElementById("count");
+const emptyEl = document.getElementById("emptyState");
+const searchEl = document.getElementById("search");
+const toastEl = document.getElementById("toast");
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, s => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  }[s]));
+}
+
+function cardHtml(item, opts){
+  opts = opts || {};
+  const badgeClass = opts.ai ? "badge ai" : "badge";
+  const badgeLabel = opts.ai ? `AI 추정 · ${escapeHtml(item.code)}` : escapeHtml(item.code);
+  return `
+    <div class="card">
+      <div class="card-top">
+        <span class="${badgeClass}">${badgeLabel}</span>
+        <span class="symptom">${escapeHtml(item.symptom)}</span>
+      </div>
+      ${opts.aiNote ? `<div class="row"><b>AI가 읽은 화면</b>${escapeHtml(opts.aiNote)}</div>` : ""}
+      ${opts.confidence ? `<div class="row"><b>확신도</b>${escapeHtml(opts.confidence)}</div>` : ""}
+      <div class="row"><b>원인</b>${escapeHtml(item.cause)}</div>
+      <div class="row"><b>조치</b>${escapeHtml(item.action)}</div>
+      <div class="actions">
+        <button class="copy-btn" data-code="${escapeHtml(item.code)}">고객 안내문구 복사</button>
+      </div>
+    </div>
+  `;
+}
+
+function bindCopyButtons(container){
+  container.querySelectorAll(".copy-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const item = ERROR_CODES.find(c => c.code === btn.dataset.code);
+      if (!item) return;
+      const text = `[오류코드 ${item.code}]\n증상: ${item.symptom}\n원인: ${item.cause}\n조치방법: ${item.action}`;
+      copyText(text);
+    });
+  });
+}
+
+function render(items){
+  listEl.innerHTML = items.map(item => cardHtml(item)).join("");
+  countEl.textContent = `전체 ${ERROR_CODES.length}건 중 ${items.length}건 표시`;
+  emptyEl.style.display = items.length ? "none" : "block";
+  bindCopyButtons(listEl);
+}
+
+function copyText(text){
+  const done = () => {
+    toastEl.classList.add("show");
+    setTimeout(() => toastEl.classList.remove("show"), 1400);
+  };
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+  } else {
+    fallbackCopy(text, done);
+  }
+}
+
+function fallbackCopy(text, done){
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); } catch(e) {}
+  document.body.removeChild(ta);
+  done();
+}
+
+function normalize(str){
+  return String(str).toLowerCase().replace(/\s+/g, "");
+}
+
+function doSearch(){
+  const q = normalize(searchEl.value);
+  if (!q){ render(ERROR_CODES); return; }
+  const filtered = ERROR_CODES.filter(item =>
+    normalize(item.code).includes(q) ||
+    normalize(item.symptom).includes(q) ||
+    normalize(item.cause).includes(q) ||
+    normalize(item.action).includes(q)
+  );
+  render(filtered);
+}
+
+searchEl.addEventListener("input", doSearch);
+render(ERROR_CODES);
+
+// ---------- 탭 전환 ----------
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    const target = btn.dataset.tab;
+    document.getElementById("tab-search").style.display = target === "search" ? "block" : "none";
+    document.getElementById("tab-photo").style.display = target === "photo" ? "block" : "none";
+  });
+});
+
+// ---------- 사진으로 확인 ----------
+const photoInput = document.getElementById("photoInput");
+const pickPhotoBtn = document.getElementById("pickPhotoBtn");
+const photoPreviewWrap = document.getElementById("photoPreviewWrap");
+const photoPreview = document.getElementById("photoPreview");
+const retakeBtn = document.getElementById("retakeBtn");
+const analyzeBtn = document.getElementById("analyzeBtn");
+const photoStatus = document.getElementById("photoStatus");
+const photoResult = document.getElementById("photoResult");
+
+let currentPhoto = null; // { base64, mimeType }
+
+pickPhotoBtn.addEventListener("click", () => photoInput.click());
+
+retakeBtn.addEventListener("click", () => {
+  currentPhoto = null;
+  photoInput.value = "";
+  photoPreviewWrap.style.display = "none";
+  pickPhotoBtn.style.display = "block";
+  photoStatus.textContent = "";
+  photoResult.innerHTML = "";
+});
+
+photoInput.addEventListener("change", () => {
+  const file = photoInput.files && photoInput.files[0];
+  if (!file) return;
+  resizeImage(file, 1280, 0.82).then(({ base64, mimeType, dataUrl }) => {
+    currentPhoto = { base64, mimeType };
+    photoPreview.src = dataUrl;
+    photoPreviewWrap.style.display = "flex";
+    pickPhotoBtn.style.display = "none";
+    photoStatus.textContent = "";
+    photoResult.innerHTML = "";
+  });
+});
+
+function resizeImage(file, maxSize, quality){
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const reader = new FileReader();
+    reader.onload = () => {
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > height && width > maxSize){
+          height = Math.round(height * (maxSize / width));
+          width = maxSize;
+        } else if (height > maxSize){
+          width = Math.round(width * (maxSize / height));
+          height = maxSize;
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+        const dataUrl = canvas.toDataURL("image/jpeg", quality);
+        resolve({ base64: dataUrl.split(",")[1], mimeType: "image/jpeg", dataUrl });
+      };
+      img.onerror = reject;
+      img.src = reader.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+analyzeBtn.addEventListener("click", async () => {
+  if (!currentPhoto) return;
+
+  if (!APPS_SCRIPT_URL){
+    photoStatus.textContent = "아직 서버 연결 전입니다 (사장님 배포 필요).";
+    return;
+  }
+
+  analyzeBtn.disabled = true;
+  photoStatus.textContent = "AI가 사진을 확인하고 있어요...";
+  photoResult.innerHTML = "";
+
+  try {
+    // Content-Type을 지정하지 않아야 브라우저가 사전 확인(preflight) 요청을 안 보내서
+    // 구글 Apps Script와 통신할 때 CORS 오류가 안 납니다 (일부러 헤더를 안 붙인 것).
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        token: APPS_SCRIPT_TOKEN,
+        image: currentPhoto.base64,
+        mimeType: currentPhoto.mimeType,
+        knownCodes: ERROR_CODES.map(c => ({ code: c.code, symptom: c.symptom })),
+      }),
+    });
+    const data = await res.json();
+
+    if (!data.ok){
+      photoStatus.textContent = "분석에 실패했습니다. 잠시 후 다시 시도하거나 수리팀에 문의해주세요.";
+      return;
+    }
+
+    photoStatus.textContent = "";
+    const matched = ERROR_CODES.find(c => c.code === data.code);
+    if (matched){
+      photoResult.innerHTML = cardHtml(matched, { ai: true, aiNote: data.note, confidence: data.confidence });
+      bindCopyButtons(photoResult);
+    } else {
+      photoResult.innerHTML = `
+        <div class="card">
+          <div class="card-top"><span class="badge ai">AI 추정 · 목록에 없음</span></div>
+          <div class="row"><b>AI가 읽은 화면</b>${escapeHtml(data.note || "-")}</div>
+          <div class="row">일치하는 코드를 찾지 못했습니다. 수리팀에 문의해주세요.</div>
+        </div>
+      `;
+    }
+  } catch (err){
+    photoStatus.textContent = "분석에 실패했습니다. 인터넷 연결을 확인해주세요.";
+  } finally {
+    analyzeBtn.disabled = false;
+  }
+});
+
+if ("serviceWorker" in navigator){
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
