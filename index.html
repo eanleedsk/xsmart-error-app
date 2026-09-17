@@ -939,7 +939,7 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
 });
 
 // ---------- 사진으로 확인 ----------
-const photoInput = document.getElementById("photoInput");
+let photoInput = document.getElementById("photoInput");
 const pickPhotoBtn = document.getElementById("pickPhotoBtn");
 const photoPreviewWrap = document.getElementById("photoPreviewWrap");
 const photoPreview = document.getElementById("photoPreview");
@@ -950,18 +950,7 @@ const photoResult = document.getElementById("photoResult");
 
 let currentPhoto = null; // { base64, mimeType }
 
-pickPhotoBtn.addEventListener("click", () => photoInput.click());
-
-retakeBtn.addEventListener("click", () => {
-  currentPhoto = null;
-  photoInput.value = "";
-  photoPreviewWrap.style.display = "none";
-  pickPhotoBtn.style.display = "block";
-  photoStatus.textContent = "";
-  photoResult.innerHTML = "";
-});
-
-photoInput.addEventListener("change", () => {
+function onPhotoInputChange(){
   const file = photoInput.files && photoInput.files[0];
   if (!file) return;
   resizeImage(file, 1280, 0.82).then(({ base64, mimeType, dataUrl }) => {
@@ -972,6 +961,29 @@ photoInput.addEventListener("change", () => {
     photoStatus.textContent = "";
     photoResult.innerHTML = "";
   });
+}
+photoInput.addEventListener("change", onPhotoInputChange);
+
+// 한 번 사진을 고른 뒤에는 같은 input 태그를 재사용하면 일부 폰(특히 아이폰) 브라우저에서
+// 카메라가 다시 안 열리는 경우가 있어서, 매번 input 태그 자체를 새로 만들어 갈아끼운다.
+function resetPhotoInput(){
+  const fresh = photoInput.cloneNode(true);
+  fresh.value = "";
+  photoInput.parentNode.replaceChild(fresh, photoInput);
+  photoInput = fresh;
+  photoInput.addEventListener("change", onPhotoInputChange);
+}
+
+pickPhotoBtn.addEventListener("click", () => photoInput.click());
+
+retakeBtn.addEventListener("click", () => {
+  currentPhoto = null;
+  photoPreviewWrap.style.display = "none";
+  pickPhotoBtn.style.display = "block";
+  photoStatus.textContent = "";
+  photoResult.innerHTML = "";
+  resetPhotoInput();
+  photoInput.click(); // "다시 선택" 누르면 바로 카메라/사진첩이 다시 뜨도록
 });
 
 function resizeImage(file, maxSize, quality){
