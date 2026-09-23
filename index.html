@@ -154,9 +154,6 @@
   #photoStatus{ font-size:13px; color:var(--muted); text-align:center; }
   .log-note{ font-size:11.5px; color:var(--muted); text-align:center; line-height:1.5; }
 
-  .kakao-optin{ margin:0 16px 12px; padding:12px; background:#FFF9EE; border:1px solid var(--border); border-radius:10px; text-align:left; }
-  .kakao-optin #kakaoStatusText{ font-size:13px; color:#333; margin-bottom:8px; }
-  .kakao-optin button{ width:100%; }
 
   .name-gate{
     position:fixed;
@@ -251,11 +248,6 @@
 <div id="tab-photo" style="display:none;">
   <div class="notice">
     ⚠ AI 사진 분석은 <b>참고용 추정</b>입니다. 확신도가 낮거나 애매하면 수리팀에 다시 확인하세요.
-  </div>
-  <div class="kakao-optin">
-    <div id="kakaoStatusText">📩 분석 결과를 내 카카오톡으로도 받아보시겠어요? (선택)</div>
-    <button id="kakaoLoginBtn" class="ghost-btn">카카오로 받기 설정</button>
-    <button id="kakaoLogoutBtn" class="ghost-btn" style="display:none;">카카오 연결 끄기</button>
   </div>
   <div class="photo-wrap">
     <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none;">
@@ -1085,58 +1077,6 @@ function resizeImage(file, maxSize, quality){
   });
 }
 
-// ---------- 카카오톡으로 결과 받기 (선택, 카카오 로그인 방식 - 2026-09-23) ----------
-// 발송업체(알리고 등)를 거치지 않는 무료 방식: 카카오 로그인으로 본인 인증만 하면,
-// 분석이 끝난 뒤 본인 카톡의 "나와의 채팅"으로 결과가 온다. 카카오 개발자센터에 등록한
-// 앱 이름("X-Smart Pro")으로 표시되며, 건당 비용이나 발송업체 가입이 전혀 필요 없다.
-const KAKAO_REST_KEY = ""; // 사장님이 카카오 개발자센터에서 앱 만들고 REST API 키를 여기 채워야 함
-const kakaoStatusTextEl = document.getElementById("kakaoStatusText");
-const kakaoLoginBtn = document.getElementById("kakaoLoginBtn");
-const kakaoLogoutBtn = document.getElementById("kakaoLogoutBtn");
-let kakaoSession = null;
-
-function renderKakaoStatus(){
-  if (kakaoSession){
-    kakaoStatusTextEl.textContent = "📩 카카오톡으로 결과 받기: 켜짐";
-    kakaoLoginBtn.style.display = "none";
-    kakaoLogoutBtn.style.display = "block";
-  } else {
-    kakaoStatusTextEl.textContent = "📩 분석 결과를 내 카카오톡으로도 받아보시겠어요? (선택)";
-    kakaoLoginBtn.style.display = "block";
-    kakaoLogoutBtn.style.display = "none";
-  }
-}
-
-(function initKakaoOptIn(){
-  const params = new URLSearchParams(location.search);
-  const fromUrl = params.get("kakaoSession");
-  if (fromUrl){
-    localStorage.setItem("xsmartKakaoSession", fromUrl);
-    history.replaceState({}, "", location.pathname);
-  }
-  kakaoSession = localStorage.getItem("xsmartKakaoSession");
-  renderKakaoStatus();
-})();
-
-kakaoLoginBtn.addEventListener("click", () => {
-  if (!APPS_SCRIPT_URL || !KAKAO_REST_KEY){
-    alert("카카오 연결이 아직 준비되지 않았습니다 (사장님 설정 필요).");
-    return;
-  }
-  const authUrl = "https://kauth.kakao.com/oauth/authorize" +
-    "?client_id=" + KAKAO_REST_KEY +
-    "&redirect_uri=" + encodeURIComponent(APPS_SCRIPT_URL) +
-    "&response_type=code" +
-    "&scope=talk_message";
-  location.href = authUrl;
-});
-
-kakaoLogoutBtn.addEventListener("click", () => {
-  localStorage.removeItem("xsmartKakaoSession");
-  kakaoSession = null;
-  renderKakaoStatus();
-});
-
 analyzeBtn.addEventListener("click", async () => {
   if (!currentPhoto) return;
 
@@ -1160,7 +1100,6 @@ analyzeBtn.addEventListener("click", async () => {
         name: currentUserName,
         image: currentPhoto.base64,
         mimeType: currentPhoto.mimeType,
-        kakaoSession: kakaoSession || "",
       }),
     });
     const data = await res.json();
@@ -1170,8 +1109,7 @@ analyzeBtn.addEventListener("click", async () => {
       return;
     }
 
-    photoStatus.textContent = data.kakaoStatus === "발송성공" ? "📩 카카오톡으로도 결과를 보내드렸어요." :
-      (kakaoSession ? "⚠ 카카오톡 발송에는 실패했지만, 분석 결과는 아래에서 확인하실 수 있어요." : "");
+    photoStatus.textContent = "";
     const matched = ERROR_CODES.find(c => c.code === data.code);
     if (matched){
       photoResult.innerHTML = cardHtml(matched, { ai: true, aiNote: data.note, confidence: data.confidence });
