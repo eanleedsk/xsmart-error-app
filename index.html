@@ -240,6 +240,8 @@
   <div id="emptyState" class="empty" style="display:none;">
     검색 결과가 없습니다.<br>수리팀에 직접 문의해주세요.
   </div>
+  <div id="similarSuggestStatus" class="log-note" style="display:none;"></div>
+  <div class="list" id="similarSuggestList"></div>
 </div>
 
 <div id="tab-photo" style="display:none;">
@@ -827,6 +829,7 @@ function cardHtml(item, opts){
         <span class="symptom">${escapeHtml(item.symptom)}</span>
       </div>
       ${opts.aiNote ? `<div class="row"><b>AI가 읽은 화면</b>${escapeHtml(opts.aiNote)}</div>` : ""}
+      ${opts.aiReason ? `<div class="row"><b>제미나이가 이렇게 본 이유</b>${escapeHtml(opts.aiReason)}</div>` : ""}
       ${opts.confidence ? `<div class="row"><b>확신도</b>${escapeHtml(opts.confidence)}</div>` : ""}
       <div class="row"><b>원인</b>${escapeHtml(item.cause)}</div>
       <div class="row"><b>조치</b>${escapeHtml(item.action)}</div>
@@ -887,7 +890,7 @@ function normalize(str){
 
 function doSearch(){
   const q = normalize(searchEl.value);
-  if (!q){ render(ERROR_CODES); return; }
+  if (!q){ render(ERROR_CODES); clearSimilarSuggest(); return; }
   const filtered = ERROR_CODES.filter(item =>
     normalize(item.code).includes(q) ||
     normalize(item.symptom).includes(q) ||
@@ -895,9 +898,67 @@ function doSearch(){
     normalize(item.action).includes(q)
   );
   render(filtered);
+  // 정확히 일치하는 게 하나도 없으면(글자를 2개 이상 입력했을 때만) 제미나이에게 비슷한
+  // 코드를 물어본다 - 2026-09-22 추가. 한 글자씩 입력하는 중에는 계속 "결과 없음"이 뜨므로
+  // 타이핑이 잠깐 멈췄을 때(0.7초) 한 번만 물어보도록 debounce 처리.
+  if (filtered.length === 0 && searchEl.value.trim().length >= 2){
+    scheduleSimilarSuggest(searchEl.value.trim());
+  } else {
+    clearSimilarSuggest();
+  }
 }
 
 searchEl.addEventListener("input", doSearch);
+
+// ---------- 검색 결과 없을 때 제미나이에게 비슷한 코드 물어보기 ----------
+const similarStatusEl = document.getElementById("similarSuggestStatus");
+const similarListEl = document.getElementById("similarSuggestList");
+let similarSuggestTimer = null;
+let similarSuggestSeq = 0; // 검색어가 계속 바뀌는 동안 옛날 응답이 늦게 도착해 화면을 덮어쓰는 것 방지
+
+function clearSimilarSuggest(){
+  if (similarSuggestTimer){ clearTimeout(similarSuggestTimer); similarSuggestTimer = null; }
+  similarSuggestSeq++;
+  similarStatusEl.style.display = "none";
+  similarListEl.innerHTML = "";
+}
+
+function scheduleSimilarSuggest(query){
+  if (similarSuggestTimer) clearTimeout(similarSuggestTimer);
+  similarListEl.innerHTML = "";
+  similarStatusEl.style.display = "block";
+  similarStatusEl.textContent = "🔍 제미나이가 비슷한 코드를 찾아보는 중...";
+  similarSuggestTimer = setTimeout(() => fetchSimilarSuggest(query), 700);
+}
+
+async function fetchSimilarSuggest(query){
+  if (!APPS_SCRIPT_URL){ similarStatusEl.style.display = "none"; return; }
+  const mySeq = ++similarSuggestSeq;
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        token: APPS_SCRIPT_TOKEN,
+        mode: "유사코드",
+        name: currentUserName,
+        query: query,
+      }),
+    });
+    const data = await res.json();
+    if (mySeq !== similarSuggestSeq) return; // 그 사이에 검색어가 또 바뀌었으면 이 결과는 버림
+    if (data.ok && Array.isArray(data.suggestions) && data.suggestions.length){
+      similarStatusEl.textContent = "🔍 정확히 일치하는 코드는 없지만, 제미나이가 찾은 비슷한 코드입니다 (참고용):";
+      similarListEl.innerHTML = data.suggestions.map(s =>
+        cardHtml(s, { ai: true, aiReason: s.reason })
+      ).join("");
+      bindCopyButtons(similarListEl, { logSearch: false });
+    } else {
+      similarStatusEl.textContent = "🔍 제미나이도 비슷한 코드를 찾지 못했습니다. 수리팀에 문의해주세요.";
+    }
+  } catch (e) {
+    if (mySeq === similarSuggestSeq) similarStatusEl.style.display = "none";
+  }
+}
 
 // 오프라인 상태에서도 지난번에 받아둔 최신 오류코드 표를 쓸 수 있도록 캐시해둔다.
 try {
